@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import {
-  SiJavascript, SiTypescript, SiReact, SiVuedotjs, SiPhp, SiDotnet, SiSharp, SiPostgresql
+  SiJavascript, SiTypescript, SiReact, SiVuedotjs, SiPhp, SiDotnet, SiSharp, SiPostgresql,
+  SiGit, SiSubversion, SiGithub, SiGitlab
 } from 'react-icons/si'
 import './App.css'
 
@@ -258,6 +259,22 @@ export default function App() {
               <TechCard icon={<SiDotnet />}     name=".NET"       color="#512bd4" />
               <TechCard icon={<SiSharp />}      name="C#"         color="#239120" />
               <TechCard icon={<SiPostgresql />} name="PostgreSQL" color="#4169e1" />
+            </div>
+          </div>
+        </div>
+
+        <div className="resume__divider" />
+
+        <div className="resume__skills resume__skills--centered">
+          <div className="resume__stack">
+            <h2 className="resume__stack-title">
+              <span className="resume__stack-num">03</span> VERSION CONTROL / CI-CD
+            </h2>
+            <div className="resume__tech-grid">
+              <TechCard icon={<SiGit />}        name="Git"        color="#f05032" />
+              <TechCard icon={<SiSubversion />} name="SVN"        color="#809cc9" />
+              <TechCard icon={<SiGithub />}     name="GitHub"     color="#fff" />
+              <TechCard icon={<SiGitlab />}     name="GitLab"     color="#fc6d26" />
             </div>
           </div>
         </div>

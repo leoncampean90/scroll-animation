@@ -270,6 +270,11 @@ body {
   align-items: start;
 }
 
+.resume__skills--centered {
+  grid-template-columns: 1fr;
+  max-width: 560px;
+}
+
 .resume__stack-divider {
   width: 1px;
   background: linear-gradient(180deg, transparent, rgba(0, 255, 136, 0.3), transparent);
