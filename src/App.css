@@ -41,6 +41,7 @@ body {
 /* ── Hexagon labels ───────────────────────────── */
 .hex-label {
   position: absolute;
+  z-index: 1;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.15s ease;
@@ -385,6 +386,11 @@ body {
 
 /* Tablet and below — stack skills vertically */
 @media (max-width: 720px) {
+  .sticky-canvas {
+    height: 56.25vw;
+    top: calc(50vh - 28.125vw);
+  }
+
   .resume__skills {
     grid-template-columns: 1fr;
     gap: 40px 0;

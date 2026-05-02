@@ -74,13 +74,14 @@ export default function App() {
     const ctx    = ctxRef.current
     if (!canvas || !ctx) return
 
-    // Cap DPR so we never render more pixels than the source frame provides
+    const cssW   = canvas.offsetWidth  || window.innerWidth
+    const cssH   = canvas.offsetHeight || window.innerHeight
     const rawDpr = window.devicePixelRatio || 1
-    const dpr    = Math.min(rawDpr, SRC_W / window.innerWidth)
+    const dpr    = Math.min(rawDpr, SRC_W / cssW)
 
-    const bw      = Math.round(window.innerWidth  * dpr)
-    const bh      = Math.round(window.innerHeight * dpr)
-    const scale   = Math.max(bw / SRC_W, bh / SRC_H)
+    const bw      = Math.round(cssW * dpr)
+    const bh      = Math.round(cssH * dpr)
+    const scale   = Math.min(bw / SRC_W, bh / SRC_H)
     const scaledW = Math.round(SRC_W * scale)
     const scaledH = Math.round(SRC_H * scale)
     const offsetX = Math.round((bw - scaledW) / 2)
@@ -90,8 +91,8 @@ export default function App() {
 
     canvas.width        = bw
     canvas.height       = bh
-    canvas.style.width  = `${window.innerWidth}px`
-    canvas.style.height = `${window.innerHeight}px`
+    canvas.style.width  = `${cssW}px`
+    canvas.style.height = `${cssH}px`
     ctx.fillStyle       = '#000'
     lastFrameRef.current = -1
 
