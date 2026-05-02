@@ -41,19 +41,30 @@ export default function App() {
     ctxRef.current = canvas.getContext('2d', { alpha: false })
   }, [])
 
-  // Load frames → GPU bitmaps
+  // Load frames — GPU bitmaps on desktop, raw img on mobile to avoid OOM
   useEffect(() => {
     let count = 0
+    const isMobile = navigator.maxTouchPoints > 0 || window.innerWidth < 768
+
+    function storeFrame(index, frame) {
+      bitmapsRef.current[index] = frame
+      setLoaded(++count)
+      if (count === TOTAL_FRAMES) setAllLoaded(true)
+    }
+
     for (let i = 1; i <= TOTAL_FRAMES; i++) {
       const img = new Image()
       img.src = frameUrl(i)
       img.onload = () => {
-        createImageBitmap(img).then(bm => {
-          bitmapsRef.current[i - 1] = bm
-          setLoaded(++count)
-          if (count === TOTAL_FRAMES) setAllLoaded(true)
-        })
+        if (!isMobile && typeof createImageBitmap !== 'undefined') {
+          createImageBitmap(img)
+            .then(bm => storeFrame(i - 1, bm))
+            .catch(() => storeFrame(i - 1, img))
+        } else {
+          storeFrame(i - 1, img)
+        }
       }
+      img.onerror = () => storeFrame(i - 1, null)
     }
   }, [])
 
@@ -84,11 +95,13 @@ export default function App() {
   }
 
   function drawFrame(index) {
-    const bm  = bitmapsRef.current[index]
-    const ctx = ctxRef.current
-    const p   = paramsRef.current
-    if (!bm || !ctx || !p) return
-    ctx.drawImage(bm, 0, p.offsetY, p.bw, p.scaledH)
+    const frame = bitmapsRef.current[index]
+    const ctx   = ctxRef.current
+    const p     = paramsRef.current
+    if (!frame || !ctx || !p) return
+    // HTMLImageElement needs .complete check; ImageBitmap always ready
+    if (frame instanceof HTMLImageElement && !frame.complete) return
+    ctx.drawImage(frame, 0, p.offsetY, p.bw, p.scaledH)
     ctx.fillRect(p.bw - p.markW, p.offsetY + p.scaledH - p.markH, p.markW, p.markH)
   }
 
