@@ -401,7 +401,13 @@ body {
 
 /* Small phones */
 @media (max-width: 480px) {
-  .hex-label { display: none; }
+  .hex-label--left  { top: 28%; left: 3%; }
+  .hex-label--right { top: 28%; right: 3%; }
+  .hex-label--center { top: 50%; }
+
+  .hex-label__tag   { font-size: 8px; }
+  .hex-label__title { font-size: 12px; letter-spacing: 0.1em; }
+  .hex-label__sub   { font-size: 8px; }
 
   .resume__name {
     font-size: clamp(16px, 6vw, 26px);

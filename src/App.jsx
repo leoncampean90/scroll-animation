@@ -80,7 +80,10 @@ export default function App() {
 
     const bw      = Math.round(window.innerWidth  * dpr)
     const bh      = Math.round(window.innerHeight * dpr)
-    const scaledH = Math.round(SRC_H * (bw / SRC_W))
+    const scale   = Math.max(bw / SRC_W, bh / SRC_H)
+    const scaledW = Math.round(SRC_W * scale)
+    const scaledH = Math.round(SRC_H * scale)
+    const offsetX = Math.round((bw - scaledW) / 2)
     const offsetY = Math.round((bh - scaledH) / 2)
     const markW   = Math.round(bw * 0.2)
     const markH   = Math.round(scaledH * 0.12)
@@ -92,7 +95,7 @@ export default function App() {
     ctx.fillStyle       = '#000'
     lastFrameRef.current = -1
 
-    paramsRef.current = { bw, bh, scaledH, offsetY, markW, markH }
+    paramsRef.current = { bw, bh, scaledW, scaledH, offsetX, offsetY, markW, markH }
   }
 
   function drawFrame(index) {
@@ -102,7 +105,7 @@ export default function App() {
     if (!frame || !ctx || !p) return
     // HTMLImageElement needs .complete check; ImageBitmap always ready
     if (frame instanceof HTMLImageElement && !frame.complete) return
-    ctx.drawImage(frame, 0, p.offsetY, p.bw, p.scaledH)
+    ctx.drawImage(frame, p.offsetX, p.offsetY, p.scaledW, p.scaledH)
     ctx.fillRect(p.bw - p.markW, p.offsetY + p.scaledH - p.markH, p.markW, p.markH)
   }
 
