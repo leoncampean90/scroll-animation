@@ -1,5 +1,17 @@
-# Raw frame download folders
+# Raw frame download folders (ezgif export zips unpacked at root)
 ezgif-*/
+
+# Dependencies
+node_modules
+
+# Build output
+dist
+dist-ssr
+
+# Environment variables — never commit secrets
+.env
+.env.*
+!.env.example
 
 # Logs
 logs
@@ -10,9 +22,7 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
+# Local Vite / misc
 *.local
 
 # Editor directories and files

@@ -391,6 +391,10 @@ body {
     top: calc(50vh - 28.125vw);
   }
 
+  .scroll-space--connect {
+    height: calc(232 * 6px + 100vh - 56.25vw);
+  }
+
   .resume__skills {
     grid-template-columns: 1fr;
     gap: 40px 0;
@@ -444,5 +448,242 @@ body {
 
   .resume__traits {
     gap: 6px 12px;
+  }
+}
+
+/* ── Scroll space (connect section) ──────────── */
+.scroll-space--connect {
+  height: calc(232 * 6px + 100vh);
+  pointer-events: none;
+}
+
+/* ── Let's Connect intro ──────────────────────── */
+.connect-intro {
+  position: relative;
+  z-index: 10;
+  background: #000;
+  padding: clamp(70px, 10vw, 120px) clamp(16px, 6vw, 100px) clamp(50px, 7vw, 90px);
+  text-align: center;
+  overflow: hidden;
+  border-top: 1px solid rgba(0, 255, 136, 0.2);
+}
+
+.connect-intro__scan-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #00ff88, transparent);
+  animation: scan 3s ease-in-out infinite;
+}
+
+.connect-intro__tag {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  color: rgba(0, 255, 136, 0.5);
+  margin-bottom: clamp(10px, 1.5vw, 18px);
+}
+
+.connect-intro__title {
+  font-size: clamp(22px, 5vw, 54px);
+  font-weight: 900;
+  letter-spacing: clamp(0.06em, 1.2vw, 0.18em);
+  color: #fff;
+  text-shadow: 0 0 40px rgba(0, 255, 136, 0.25);
+  margin-bottom: clamp(12px, 1.8vw, 20px);
+  word-break: break-word;
+}
+
+.connect-intro__bracket {
+  color: #00ff88;
+  text-shadow: 0 0 20px rgba(0, 255, 136, 0.8);
+}
+
+.connect-intro__sub {
+  font-size: clamp(11px, 1.1vw, 14px);
+  letter-spacing: 0.15em;
+  color: rgba(0, 255, 136, 0.55);
+  margin-bottom: clamp(32px, 5vw, 60px);
+}
+
+.connect-intro__divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.3), transparent);
+}
+
+/* ── Social section ───────────────────────────── */
+.social {
+  position: relative;
+  z-index: 10;
+  background: #000;
+  margin-top: -45vh;
+  padding: clamp(60px, 8vw, 100px) clamp(16px, 6vw, 100px) clamp(60px, 6vw, 80px);
+  text-align: center;
+  overflow: hidden;
+  border-top: 1px solid rgba(0, 255, 136, 0.2);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 8%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 8%);
+}
+
+.social__scan-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #00ff88, transparent);
+  animation: scan 3s ease-in-out infinite;
+}
+
+.social__grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(16px, 3vw, 32px);
+  justify-content: center;
+  max-width: 900px;
+  margin: 0 auto clamp(32px, 5vw, 60px);
+}
+
+/* ── Social card ──────────────────────────────── */
+.social-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: clamp(24px, 3vw, 40px) clamp(40px, 6vw, 72px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.02);
+  transition: border-color 0.25s, background 0.25s, transform 0.25s;
+  overflow: hidden;
+  text-decoration: none;
+  min-width: clamp(160px, 22vw, 220px);
+}
+
+@media (hover: hover) {
+  .social-card:hover {
+    border-color: var(--accent, #00ff88);
+    background: rgba(0, 255, 136, 0.04);
+    transform: translateY(-4px);
+  }
+  .social-card:hover .social-card__glow { opacity: 1; }
+}
+
+.social-card__icon {
+  font-size: clamp(28px, 4vw, 42px);
+  color: var(--accent, #fff);
+  filter: drop-shadow(0 0 8px var(--accent, #fff));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.social-card__custom {
+  font-size: clamp(20px, 2.5vw, 32px);
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  color: var(--accent, #00ff88);
+}
+
+.social-card__label {
+  font-size: clamp(10px, 1.1vw, 13px);
+  letter-spacing: 0.25em;
+  color: rgba(255, 255, 255, 0.38);
+  text-transform: uppercase;
+}
+
+.social-card__handle {
+  font-size: clamp(9px, 0.9vw, 12px);
+  letter-spacing: 0.1em;
+  color: rgba(0, 255, 136, 0.65);
+  word-break: break-all;
+}
+
+.social-card__glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 40%, var(--accent, #00ff88) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  transform: scale(0.6);
+}
+
+.social__footer {
+  padding: 0 16px;
+}
+
+.social__footer-line {
+  font-size: clamp(9px, 1vw, 13px);
+  letter-spacing: 0.08em;
+  color: rgba(0, 255, 136, 0.3);
+}
+
+/* ── Tablet: reduce social overlap with animation ── */
+@media (max-width: 720px) {
+  .social {
+    margin-top: -20vw;
+  }
+
+  .social__grid {
+    gap: 16px;
+  }
+
+  .social-card {
+    min-width: clamp(140px, 40vw, 200px);
+  }
+}
+
+/* ── Small phones ────────────────────────────── */
+@media (max-width: 480px) {
+  .social {
+    margin-top: -15vw;
+    padding: 48px 16px 40px;
+  }
+
+  .social__grid {
+    gap: 12px;
+  }
+
+  .social-card {
+    flex: 1 1 calc(50% - 6px);
+    min-width: calc(50% - 6px);
+    max-width: calc(50% - 6px);
+    padding: 18px 12px;
+    gap: 7px;
+  }
+
+  .social-card__icon {
+    font-size: 26px;
+  }
+
+  .social-card__handle {
+    font-size: 9px;
+    letter-spacing: 0.05em;
+  }
+
+  .connect-intro__title {
+    font-size: clamp(18px, 7vw, 30px);
+    letter-spacing: 0.06em;
+  }
+
+  .connect-intro__sub {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+  }
+}
+
+/* ── Very small phones (360px) ───────────────── */
+@media (max-width: 360px) {
+  .social-card {
+    flex: 1 1 100%;
+    min-width: 100%;
+    max-width: 100%;
   }
 }
